@@ -105,19 +105,6 @@ namespace Trabalho.Controllers
             return Ok(user);
         }
 
-        //public IHttpActionResult Authenticate(string email, string senha)
-        //{
-        //    User usuario = GetUsers().Where(u => u.Email.ToUpper().Equals(email.ToUpper())).FirstOrDefault();
-
-        //    if (usuario == null)
-        //        return BadRequest("Email não existe na base!");
-
-        //    if (!usuario.Senha.Equals(senha))
-        //        return BadRequest("Senha não confere com email cadastrado!");
-
-        //    return Ok(usuario);
-        //}
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

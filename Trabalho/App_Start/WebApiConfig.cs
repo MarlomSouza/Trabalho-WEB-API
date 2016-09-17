@@ -17,23 +17,21 @@ namespace Trabalho
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-               name: "DefaultApi",
-               routeTemplate: "{controller}/{id}",
-               defaults: new { id = RouteParameter.Optional }
-           );
 
+
+            // Controllers with Actions
             config.Routes.MapHttpRoute(
-                name: "Authenticate",
-                routeTemplate: "{controller}/{action}/{email}/{senha}",
-                defaults: new
-                {
-                    controller = "Users",
-                    action = "Authenticate",
-                    email = RouteParameter.Optional,
-                    senha = RouteParameter.Optional
-                }
+                name: "ControllerAndAction",
+                routeTemplate: "{controller}/{action}"
             );
+
+            // Padrao
+            config.Routes.MapHttpRoute(
+              name: "DefaultApi",
+              routeTemplate: "{controller}/{id}",
+              defaults: new { id = RouteParameter.Optional}
+            );
+
         }
     }
 }

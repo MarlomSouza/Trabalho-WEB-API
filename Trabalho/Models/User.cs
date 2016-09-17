@@ -23,5 +23,7 @@ namespace Trabalho.Models
         public string Senha { get; set; }
 
         public List<Tarefa> Tarefas { get; set; }
+
+        public virtual string facebook_token { get; set; }
     }
 }
