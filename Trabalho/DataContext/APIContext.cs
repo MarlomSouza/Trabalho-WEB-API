@@ -13,5 +13,7 @@ namespace Trabalho.DataContext
 
         public DbSet<User> Users { get; set; }
         public DbSet<Tarefa> Tarefas { get; set; }
+
+        //Teste
     }
 }
