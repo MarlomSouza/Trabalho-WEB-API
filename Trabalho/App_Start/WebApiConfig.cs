@@ -18,6 +18,12 @@ namespace Trabalho
             config.MapHttpAttributeRoutes();
 
 
+            // Padrao
+            config.Routes.MapHttpRoute(
+              name: "DefaultApi",
+              routeTemplate: "{controller}/{id}",
+              defaults: new { id = RouteParameter.Optional }
+            );
 
             // Controllers with Actions
             config.Routes.MapHttpRoute(
@@ -25,12 +31,7 @@ namespace Trabalho
                 routeTemplate: "{controller}/{action}"
             );
 
-            // Padrao
-            config.Routes.MapHttpRoute(
-              name: "DefaultApi",
-              routeTemplate: "{controller}/{id}",
-              defaults: new { id = RouteParameter.Optional}
-            );
+          
 
         }
     }

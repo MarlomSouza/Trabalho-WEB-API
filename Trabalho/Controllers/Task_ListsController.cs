@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Trabalho.DataContext;
 using Trabalho.Models;
+using Newtonsoft.Json;
 
 namespace Trabalho.Controllers
 {
@@ -24,21 +25,18 @@ namespace Trabalho.Controllers
         }
 
         // GET: api/Task_Lists/5
+        // id do Usuario
         [ResponseType(typeof(Tarefa))]
         public IHttpActionResult GetTarefa(int id)
         {
-            //List<Tarefa> tarefas = db.Tarefas.Where(t => t.UserId.Equals(id)).ToList();
+            List<Tarefa> tarefas = db.Tarefas.Where(t => t.UserId.Equals(id)).ToList();
 
-            var tarefas = db.Users.Where(u => u.Id.Equals(id)).FirstOrDefault().Tarefas;
-
+            
             if (tarefas == null)
-            {
                 return NotFound();
-            }
 
-            return Ok(tarefas);
-
-            //return db.Tarefas.Where(t => t.UserId.Equals(id));
+            var json = JsonConvert.SerializeObject(tarefas);
+            return Ok(json);
         }
 
         // PUT: api/Task_Lists/5
@@ -46,14 +44,10 @@ namespace Trabalho.Controllers
         public IHttpActionResult PutTarefa(int id, Tarefa tarefa)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             if (id != tarefa.Id)
-            {
                 return BadRequest();
-            }
 
             db.Entry(tarefa).State = EntityState.Modified;
 
@@ -64,13 +58,9 @@ namespace Trabalho.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 if (!TarefaExists(id))
-                {
                     return NotFound();
-                }
                 else
-                {
                     throw;
-                }
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -81,9 +71,7 @@ namespace Trabalho.Controllers
         public IHttpActionResult PostTarefa(Tarefa tarefa)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             db.Tarefas.Add(tarefa);
             db.SaveChanges();
@@ -93,18 +81,16 @@ namespace Trabalho.Controllers
 
         // DELETE: api/Task_Lists/5
         [ResponseType(typeof(Tarefa))]
-        public IHttpActionResult DeleteTarefa(int id)
+        public IHttpActionResult DeleteTarefa(Tarefa tarefa)
         {
-            Tarefa tarefa = db.Tarefas.Find(id);
-            if (tarefa == null)
-            {
+            Tarefa _tarefa = db.Tarefas.Where(t => t.Id.Equals(tarefa.Id) && t.UserId.Equals(tarefa.UserId)).FirstOrDefault();
+            if (_tarefa == null)
                 return NotFound();
-            }
 
-            db.Tarefas.Remove(tarefa);
+            db.Tarefas.Remove(_tarefa);
             db.SaveChanges();
 
-            return Ok(tarefa);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

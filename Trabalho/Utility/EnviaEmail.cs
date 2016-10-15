@@ -22,7 +22,7 @@ namespace Trabalho.Utility
 
         private string GeraSenha(User user)
         {
-            user.Senha = user.Nome + DateTime.Now.Day + DateTime.Now.Hour;
+            user.Senha = user.Nome + DateTime.Now.Day + DateTime.Now.Second;
             return user.Senha;
         }
 

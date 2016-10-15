@@ -126,6 +126,10 @@
     <Compile Include="Migrations\201609171412475_m1.Designer.cs">
       <DependentUpon>201609171412475_m1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610151328060_facebookToken.cs" />
+    <Compile Include="Migrations\201610151328060_facebookToken.Designer.cs">
+      <DependentUpon>201610151328060_facebookToken.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Tarefa.cs" />
     <Compile Include="Models\User.cs" />
@@ -134,8 +138,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\EnviaEmail.cs" />
-    <Compile Include="Utility\FacebookAuthProvider.cs" />
-    <Compile Include="Utility\GetFacebookLoginUrl.cs" />
+    <Compile Include="Utility\FacebookConnection.cs" />
+    <Compile Include="Utility\UserBusiness.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -152,6 +156,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201609161550029_teste.resx">
       <DependentUpon>201609171412475_m1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610151328060_facebookToken.resx">
+      <DependentUpon>201610151328060_facebookToken.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

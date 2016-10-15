@@ -8,6 +8,7 @@ using System.Web.Http.Description;
 using Trabalho.DataContext;
 using Trabalho.Models;
 using Trabalho.Utility;
+using Newtonsoft.Json.Linq;
 
 namespace Trabalho.Controllers
 {
@@ -15,39 +16,36 @@ namespace Trabalho.Controllers
     {
         private APIContext db = new APIContext();
         private EnviaEmail enviaEmail = new EnviaEmail();
-        private GetFacebookLoginUrl getFacebookLoginUrl = new GetFacebookLoginUrl();
-
-        // GET: api/Authenticate
-        public IEnumerable<string> Get()
-        {
-            getFacebookLoginUrl.GetFacebookLogin("");
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Authenticate/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+        private FacebookConnection FacebookConnection = new FacebookConnection();
+        private UserBusiness _userBusiness = new UserBusiness();
 
         // POST: /Authenticate
         [ActionName("Authenticate")]
         [ResponseType(typeof(User))]
         public IHttpActionResult PostAuthenticate([FromBody]User user)
         {
-            User usuario = new User();
+            User usuario;
+            string parametros;
             if (!string.IsNullOrEmpty(user.facebook_token))
-                getFacebookLoginUrl.GetFacebookLogin(user.facebook_token);
+            {
+                parametros = FacebookConnection.GetFacebookParameters(user.facebook_token);
+                var jo = JObject.Parse(parametros);
+                if (!_userBusiness.EmailCadastrado(jo["email"].ToString()))
+                {
+                    _userBusiness.CriarUsuarioFaceBook(jo["name"].ToString(), jo["email"].ToString(), jo["birthday"].ToString());
+                }
+                
+            }
             else
             {
-                if(string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Senha))
+                if (string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Senha))
                     return BadRequest();
 
                 usuario = db.Users.Where(u => u.Email.Equals(user.Email)).FirstOrDefault();
                 if (!user.Senha.Equals(usuario.Senha))
                     return BadRequest();
             }
-            return Ok(usuario);
+            return Ok();
         }
 
         // POST: Authenticate/forgot_password
