@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Trabalho.DataContext;
 using Trabalho.Models;
-using Newtonsoft.Json;
 
 namespace Trabalho.Controllers
 {
@@ -18,38 +13,40 @@ namespace Trabalho.Controllers
     {
         private APIContext db = new APIContext();
 
-        // GET: api/Task_Lists
-        public IQueryable<Tarefa> GetTarefas()
+        public IQueryable<ListaTarefa> GetTodasListasdeTarefaUsuario(int _id)
         {
-            return db.Tarefas;
+            return db.ListaTarefas.Where(t => t.UserId.Equals(_id));
         }
 
-        // GET: api/Task_Lists/5
-        // id do Usuario
-        [ResponseType(typeof(Tarefa))]
-        public IHttpActionResult GetTarefa(int id)
+        /// <summary>
+        /// Retorna todas as tarefas da lista
+        /// </summary>
+        /// <param name="id">identificador da lista</param>
+        /// <param name="user_id">identificar do usuario</param>
+        /// <returns></returns>
+        public IQueryable<ListaTarefa> GetTarefaEspecifica(int id, int _id)
         {
-            List<Tarefa> tarefas = db.Tarefas.Where(t => t.UserId.Equals(id)).ToList();
-
-            
-            if (tarefas == null)
-                return NotFound();
-
-            var json = JsonConvert.SerializeObject(tarefas);
-            return Ok(json);
+            return db.ListaTarefas.Where(t => t.UserId.Equals(_id) && t.Id.Equals(id));
         }
 
-        // PUT: api/Task_Lists/5
+        // PUT: api/Task_list/5
+        /// <summary>
+        /// Atualização da lista de tarefas: nome e cor
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="listaTarefa"></param>
+        /// <returns></returns>
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutTarefa(int id, Tarefa tarefa)
+        public IHttpActionResult PutListaTarefa(int id, ListaTarefa listaTarefa)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            using (var context = new APIContext())
+            {
+                int userId = context.ListaTarefas.Find(id).UserId;
+                listaTarefa.UserId = userId;
+            }
+            listaTarefa.Id = id;
 
-            if (id != tarefa.Id)
-                return BadRequest();
-
-            db.Entry(tarefa).State = EntityState.Modified;
+            db.Entry(listaTarefa).State = EntityState.Modified;
 
             try
             {
@@ -57,37 +54,48 @@ namespace Trabalho.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TarefaExists(id))
+                if (!ListaTarefaExists(id))
                     return NotFound();
                 else
                     throw;
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(listaTarefa);
         }
 
-        // POST: api/Task_Lists
-        [ResponseType(typeof(Tarefa))]
-        public IHttpActionResult PostTarefa(Tarefa tarefa)
+        // POST: api/Task_list
+        /// <summary>
+        /// Cadastro de lista de tarefas
+        /// </summary>
+        /// <param name="listaTarefa"></param>
+        /// <param name="_id">Id do usuario</param>
+        /// <returns></returns>
+        [ResponseType(typeof(ListaTarefa))]
+        public IHttpActionResult PostListaTarefa(ListaTarefa listaTarefa, int _id)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            User tempUser = db.Users.Find(_id);
 
-            db.Tarefas.Add(tarefa);
+            if (tempUser == null)
+                return NotFound();
+                //return BadRequest("Usuario não existe!");
+
+            listaTarefa.UserId = _id;
+
+            db.ListaTarefas.Add(listaTarefa);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = tarefa.Id }, tarefa);
+            return CreatedAtRoute("DefaultApi", new { id = listaTarefa.Id }, listaTarefa);
         }
 
-        // DELETE: api/Task_Lists/5
-        [ResponseType(typeof(Tarefa))]
-        public IHttpActionResult DeleteTarefa(Tarefa tarefa)
+        // DELETE: api/Task_list/5
+        [ResponseType(typeof(ListaTarefa))]
+        public IHttpActionResult DeleteListaTarefa(int id)
         {
-            Tarefa _tarefa = db.Tarefas.Where(t => t.Id.Equals(tarefa.Id) && t.UserId.Equals(tarefa.UserId)).FirstOrDefault();
-            if (_tarefa == null)
+            ListaTarefa listaTarefa = db.ListaTarefas.Find(id);
+            if (listaTarefa == null)
                 return NotFound();
 
-            db.Tarefas.Remove(_tarefa);
+            db.ListaTarefas.Remove(listaTarefa);
             db.SaveChanges();
 
             return Ok();
@@ -102,9 +110,9 @@ namespace Trabalho.Controllers
             base.Dispose(disposing);
         }
 
-        private bool TarefaExists(int id)
+        private bool ListaTarefaExists(int id)
         {
-            return db.Tarefas.Count(e => e.Id == id) > 0;
+            return db.ListaTarefas.Count(e => e.Id == id) > 0;
         }
     }
 }

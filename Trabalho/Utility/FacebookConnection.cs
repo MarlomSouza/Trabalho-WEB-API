@@ -22,7 +22,7 @@ namespace Trabalho.Utility
                 FacebookClient facebookClient = new FacebookClient(facebook_token);
                 facebookClient.AppId = "614756975370105";
                 facebookClient.AppSecret = "5aaaaeb5b72b7c09772ce268a0d30a14";
-                return facebookClient.Get("me?fields=email,birthday,first_name,name").ToString();
+                return facebookClient.Get("me?fields=email,name").ToString();
             }
             catch (FacebookOAuthException)
             {

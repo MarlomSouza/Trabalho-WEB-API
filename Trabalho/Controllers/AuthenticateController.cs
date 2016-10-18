@@ -9,6 +9,7 @@ using Trabalho.DataContext;
 using Trabalho.Models;
 using Trabalho.Utility;
 using Newtonsoft.Json.Linq;
+using System.Net.Mail;
 
 namespace Trabalho.Controllers
 {
@@ -22,19 +23,21 @@ namespace Trabalho.Controllers
         // POST: /Authenticate
         [ActionName("Authenticate")]
         [ResponseType(typeof(User))]
+        [Route("Authenticate/Authenticate")]
         public IHttpActionResult PostAuthenticate([FromBody]User user)
         {
             User usuario;
             string parametros;
+
             if (!string.IsNullOrEmpty(user.facebook_token))
             {
                 parametros = FacebookConnection.GetFacebookParameters(user.facebook_token);
                 var jo = JObject.Parse(parametros);
-                if (!_userBusiness.EmailCadastrado(jo["email"].ToString()))
-                {
-                    _userBusiness.CriarUsuarioFaceBook(jo["name"].ToString(), jo["email"].ToString(), jo["birthday"].ToString());
-                }
-                
+                string email = jo["email"].ToString();
+                if (!_userBusiness.EmailCadastrado(email))
+                    _userBusiness.CriarUsuarioFaceBook(jo["name"].ToString(), email);
+
+                usuario = db.Users.Where(u => u.Email.Equals(email)).FirstOrDefault();
             }
             else
             {
@@ -42,10 +45,14 @@ namespace Trabalho.Controllers
                     return BadRequest();
 
                 usuario = db.Users.Where(u => u.Email.Equals(user.Email)).FirstOrDefault();
+
+                if(usuario == null)
+                    return BadRequest("Email não encontrado!");
+
                 if (!user.Senha.Equals(usuario.Senha))
-                    return BadRequest();
+                    return BadRequest("Senha inválida!");
             }
-            return Ok();
+            return Ok(usuario);
         }
 
         // POST: Authenticate/forgot_password
@@ -53,11 +60,17 @@ namespace Trabalho.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult PostForgot_password([FromBody]User user)
         {
+            if(string.IsNullOrEmpty(user.Email))
+                return BadRequest("Email não preenchido!");
+
+            if (!IsValid(user.Email))
+                return BadRequest("Email inválido!");
+
             var existeUsuario = db.Users.Where(u => u.Email.Equals(user.Email)).FirstOrDefault();
             if (existeUsuario != null)
             {
                 User usuario = existeUsuario;
-                if (enviaEmail.CriaEmail(usuario))
+                if (enviaEmail.CriaEmail(usuario, "Renovação de senha"))
                 {
                     db.SaveChanges();
                     return Ok("Senha Alterada");
@@ -66,14 +79,17 @@ namespace Trabalho.Controllers
             return BadRequest("Email não existe na base!");
         }
 
-        // PUT: api/Authenticate/5
-        public void Put(int id, [FromBody]string value)
+        public bool IsValid(string emailaddress)
         {
-        }
-
-        // DELETE: api/Authenticate/5
-        public void Delete(int id)
-        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
     }
 }

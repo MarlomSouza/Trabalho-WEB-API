@@ -22,7 +22,7 @@ namespace Trabalho.Models
         [Required]
         public string Senha { get; set; }
 
-        public List<Tarefa> Tarefas { get; set; }
+        public List<ListaTarefa> Tarefas { get; set; }
 
         public virtual string facebook_token { get; set; }
     }

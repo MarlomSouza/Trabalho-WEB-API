@@ -18,6 +18,7 @@ namespace Trabalho.Controllers
         private APIContext db = new APIContext();
 
         // GET: api/Users
+        ///
         public IQueryable<User> GetUsers()
         {
             return db.Users;
@@ -29,9 +30,7 @@ namespace Trabalho.Controllers
         {
             User user = db.Users.Find(id);
             if (user == null)
-            {
                 return NotFound();
-            }
 
             return Ok(user);
         }
@@ -40,15 +39,7 @@ namespace Trabalho.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutUser(int id, User user)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
+            user.Id = id;
 
             db.Entry(user).State = EntityState.Modified;
 
@@ -59,13 +50,9 @@ namespace Trabalho.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 if (!UserExists(id))
-                {
                     return NotFound();
-                }
                 else
-                {
                     throw;
-                }
             }
 
             return Ok(user);
@@ -76,9 +63,7 @@ namespace Trabalho.Controllers
         public IHttpActionResult PostUser(User user)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             if (GetUsers().Any(u => u.Email.Equals(user.Email)))
                 return BadRequest("Email já cadastrado!");

@@ -7,13 +7,13 @@ namespace Trabalho.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class m1 : IMigrationMetadata
+    public sealed partial class listatarefavirtual : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(m1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(listatarefavirtual));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609171412475_m1"; }
+            get { return "201610172352166_listatarefavirtual"; }
         }
         
         string IMigrationMetadata.Source

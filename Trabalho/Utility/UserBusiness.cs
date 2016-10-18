@@ -9,19 +9,16 @@ namespace Trabalho.Utility
     public class UserBusiness
     {
         private APIContext db = new APIContext();
+        private EnviaEmail enviaEmail = new EnviaEmail();
 
-
-        public void CriarUsuarioFaceBook(string nome, string email, string dataNascimento)
+        public void CriarUsuarioFaceBook(string nome, string email)
         {
-            
-            var dataNascimentoSenha = DateTime.ParseExact(dataNascimento, "MM/dd/yyyy", CultureInfo.InvariantCulture).ToString("yyyyddMM");
             User us = new User()
             {
                 Nome = nome,
-                Email = email,
-                Senha = dataNascimentoSenha,
-                Tarefas = null
+                Email = email
             };
+            enviaEmail.CriaEmail(us,"Senha do sistema de tarefa");
             db.Users.Add(us);
             db.SaveChanges();
         }

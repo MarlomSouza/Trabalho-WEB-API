@@ -13,20 +13,16 @@ namespace Trabalho.Utility
         MailMessage email = new MailMessage();
 
         string nomeRemetente = "Sistema de Tarefas";
-        string emailRemetente = "marlom1012@gmail.com";
-
-
-
-        string assuntoMensagem = "Renovação Senha";
+        string emailRemetente = "aliguijulmar@gmail.com";
 
 
         private string GeraSenha(User user)
         {
-            user.Senha = user.Nome + DateTime.Now.Day + DateTime.Now.Second;
+            user.Senha = (user.Nome).Replace(" ","") + DateTime.Now.Day + DateTime.Now.Second;
             return user.Senha;
         }
 
-        public bool CriaEmail(User user)
+        public bool CriaEmail(User user, string assuntoMensagem)
         {
 
             email.From = new MailAddress(nomeRemetente + "<" + emailRemetente + ">");
@@ -35,7 +31,7 @@ namespace Trabalho.Utility
             email.To.Add(user.Email);
 
             //Define a prioridade do e-mail.
-            email.Priority = System.Net.Mail.MailPriority.Normal;
+            email.Priority = System.Net.Mail.MailPriority.High;
 
             //Define o formato do e-mail HTML (caso não queira HTML alocar valor false)
             email.IsBodyHtml = true;
@@ -49,7 +45,6 @@ namespace Trabalho.Utility
             //Para evitar problemas de caracteres "estranhos", configuramos o charset para "ISO-8859-1"
             email.SubjectEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
             email.BodyEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
-
 
             //Cria objeto com os dados do SMTP
             //SmtpClient objSmtp = new SmtpClient("smtp.mail.yahoo.com", 587);
@@ -77,7 +72,7 @@ namespace Trabalho.Utility
             }
             finally
             {
-                //excluímos o objeto de e-mail da memória
+                //excluí o objeto de e-mail da memória
                 email.Dispose();
                 //anexo.Dispose();
             }

@@ -18,12 +18,32 @@ namespace Trabalho
             config.MapHttpAttributeRoutes();
 
 
-            // Padrao
+              // Padrao
             config.Routes.MapHttpRoute(
               name: "DefaultApi",
-              routeTemplate: "{controller}/{id}",
-              defaults: new { id = RouteParameter.Optional }
+              routeTemplate: "{controller}/{id}/{user_id}",
+              defaults: new { id = RouteParameter.Optional, user_id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+              name: "FunçãoEspecificaPorUsuarioOuLista",
+              routeTemplate: "{controller}/{_id}",
+              defaults: new { _id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+              name: "FunçãoEspecifica",
+              routeTemplate: "{controller}/{_listaId}/{task_id}",
+              defaults: new { _listaId = RouteParameter.Optional, task_id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+            name: "ListaTodasTarefasLista",
+            routeTemplate: "{controller}/{_listaId}/{user_id}",
+            defaults: new { _listaId = RouteParameter.Optional, user_id = RouteParameter.Optional }
+          );
+
+
 
             // Controllers with Actions
             config.Routes.MapHttpRoute(

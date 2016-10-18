@@ -14,6 +14,8 @@ namespace Trabalho.DataContext
         public DbSet<User> Users { get; set; }
         public DbSet<Tarefa> Tarefas { get; set; }
 
+        public DbSet<ListaTarefa> ListaTarefas { get; set; }
+
         //Teste
     }
 }

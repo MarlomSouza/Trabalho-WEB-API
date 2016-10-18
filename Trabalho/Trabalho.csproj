@@ -119,18 +119,20 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthenticateController.cs" />
+    <Compile Include="Controllers\Task_listController.cs" />
     <Compile Include="Controllers\Task_ListsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataContext\APIContext.cs" />
-    <Compile Include="Migrations\201609171412475_m1.cs" />
-    <Compile Include="Migrations\201609171412475_m1.Designer.cs">
-      <DependentUpon>201609171412475_m1.cs</DependentUpon>
+    <Compile Include="Migrations\201610151927405_m1.cs" />
+    <Compile Include="Migrations\201610151927405_m1.Designer.cs">
+      <DependentUpon>201610151927405_m1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610151328060_facebookToken.cs" />
-    <Compile Include="Migrations\201610151328060_facebookToken.Designer.cs">
-      <DependentUpon>201610151328060_facebookToken.cs</DependentUpon>
+    <Compile Include="Migrations\201610172352166_listatarefavirtual.cs" />
+    <Compile Include="Migrations\201610172352166_listatarefavirtual.Designer.cs">
+      <DependentUpon>201610172352166_listatarefavirtual.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ListaTarefa.cs" />
     <Compile Include="Models\Tarefa.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Global.asax.cs">
@@ -154,11 +156,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609161550029_teste.resx">
-      <DependentUpon>201609171412475_m1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610151927405_m1.resx">
+      <DependentUpon>201610151927405_m1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610151328060_facebookToken.resx">
-      <DependentUpon>201610151328060_facebookToken.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610172352166_listatarefavirtual.resx">
+      <DependentUpon>201610172352166_listatarefavirtual.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
