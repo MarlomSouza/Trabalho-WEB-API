@@ -33,3 +33,117 @@ Esqueceu a senha
 		"email": "thunder_bolt2000@hotmail.com"
 	}
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+TESTES REALIZADOS
+
+
+USUÁRIO
+
+Obtem todos os usuários cadastrados:
+GET http://listatarefas.apphb.com/users
+
+Obtem um usuário em específico:
+GET http://listatarefas.apphb.com/users/2
+
+Atualiza as informações de um usuário:
+PUT http://listatarefas.apphb.com/users/2
+JSON:
+{
+  "Id": 2,
+  "Nome": "Guilherme Vicente",
+  "Email": "guilhermeov@hotmail.com",
+  "Senha": "vampeta",
+  "Tarefas": null,
+  "facebook_token": null
+}
+
+Salvar um novo usuário:
+POST: http://listatarefas.apphb.com/users/3
+JSON:
+{
+  "Id": 3,
+  "Nome": "Aline Mendes",
+  "Email": "alinegmv@gmail.com",
+  "Senha": "vilela",
+  "Tarefas": null,
+  "facebook_token": null
+}
+
+Deletar um usuário:
+DELETE: http://listatarefas.apphb.com/users/3
+
+LISTA DE TAREFAS
+
+Criar uma lista de tarefas:
+POST http://listatarefas.apphb.com/Task_Lists/?_id=2
+{
+	"Nome": "Lista do campeonato",
+	"Cor": "Verde-Abacate"
+}
+
+Obtem lista de tarefa de um usuário:
+GET http://listatarefas.apphb.com/task_lists?_id=2
+
+Atualizar uma lista de tarefas:
+PUT http://listatarefas.apphb.com/Task_Lists/?id=2
+{
+  "Id": 2,
+  "Nome": "Lista da escola",
+  "Cor": "Verde-Abacate",
+  "Tarefas": null,
+  "UserId": 2
+}
+
+Apagar uma lista de tarefas:
+DELETE http://listatarefas.apphb.com/Task_Lists/?id=2
+
+Obtem uma tarefa específica de uma lista:
+GET http://listatarefas.apphb.com/Task_Lists/?id=2&_id=2
+
+TAREFAS
+
+Obtem todas as tarefas de um usuário:
+GET http://listatarefas.apphb.com/Task_List/?_id=2
+
+Obtem todas as tarefas de uma lista:
+GET http://listatarefas.apphb.com/Task_List/?_listaId=2&user_id=2
+
+Criar uma tarefa:
+POST http://listatarefas.apphb.com/Task_List/?_id=3
+{
+  "Nome": "Primeira2",
+	"Feito": 0
+}
+
+Atualizar uma tarefa
+PUT http://listatarefas.apphb.com/Task_List/?_listaId=3&task_id=1
+{
+  "Id": 1,
+  "Nome": "Vampiros Gagos",
+  "Data": "2016-10-18T22:43:37.117",
+  "Feito": false,
+  "ListaTarefaId": 3
+}
+
+AUTENTICAÇÃO
+
+Esqueceu a senha:
+POST http://listatarefas.apphb.com/Authenticate/Forgot_password
+{
+	"email": "guilhermeov@hotmail.com"
+}
+
+Obtem o token do Facebook:
+http://listatarefas.apphb.com/view/LoginFace.html
+
+Token de autenticação:
+http://listatarefas.apphb.com/Authenticate/Authenticate
+{
+  "Facebook_token": "EAAIvHkMj33kBAPm0S4hZC2zw5xJW8g2ZBZBz4nKKHjcoHnhqkAd8PehiYsnYkOa89kL3109fHzZB6xNdmZAiIPe3bCPLyZA9hxWtvXbA8diVsTTB1k2ATVIhZAQ0ZAALyzCTqI89H1q4IMuZCXvlS6IMvtmWXJYUZAhZCQKjOEIIzpAkAZDZD""
+}
+
+Teste com Token EXPIRADO
+{
+  "Facebook_token": "EAACEdEose0cBAB3TWFAy4h2CMl7YBECUBzswd1ZABtJMDmKryvOLZANYUi3Ilt7HqIIGEXVL4PeNoCDoZAb1Ro4Mzsq20jR973cnCd7AZArGZAO0NRZAKZCBTBZBJ8j1f9bUzQMSwOmyjQjFndjxh9i4kTeA3BZAZCUyrfe16qViby96Giuvkc2XmL"
+}
