@@ -1,42 +1,4 @@
-Documento para usar o WEB API
-
-Criar um Usuario 
-	{
-	"Nome": "Marlom Souza",
-	"email": "XXX@XXX.com",
-	"senha": "XXX"
-	}
-
-Authenticar com Email
-	{
-		"email": "XXXXX@XXXX.com"
-	}
-
-OBTER O TOKEN DO FACE
-	http://localhost:6507/view/LoginFace.html
-		F12 -> Object -> accessToken
-
-		Authenticar com o token facebook
-			{
-				"Facebook_token": "EAACEdEose0cBAB3TWFAy4h2CMl7YBECUBzswd1ZABtJMDmKryvOLZANYUi3Ilt7HqIIGEXVL4PeNoCDoZAb1Ro4Mzsq20jR973cnCd7AZArGZAO0NRZAKZCBTBZBJ8j1f9bUzQMSwOmyjQjFndjxh9i4kTeA3BZAZCUyrfe16qViby96Giuvkc2XmL"
-			}
-
-		Teste com Token EXPIRADO
-			{
-				"Facebook_token": "EAACEdEose0cBAB3TWFAy4h2CMl7YBECUBzswd1ZABtJMDmKryvOLZANYUi3Ilt7HqIIGEXVL4PeNoCDoZAb1Ro4Mzsq20jR973cnCd7AZArGZAO0NRZAKZCBTBZBJ8j1f9bUzQMSwOmyjQjFndjxh9i4kTeA3BZAZCUyrfe16qViby96Giuvkc2XmL"
-			}
-
-
-
-Esqueceu a senha
-	{
-		"email": "thunder_bolt2000@hotmail.com"
-	}
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-TESTES REALIZADOS
-
+ROTEIRO DE TESTES
 
 USUÁRIO
 
@@ -165,3 +127,41 @@ Teste com Token EXPIRADO
 {
   "Facebook_token": "EAACEdEose0cBAB3TWFAy4h2CMl7YBECUBzswd1ZABtJMDmKryvOLZANYUi3Ilt7HqIIGEXVL4PeNoCDoZAb1Ro4Mzsq20jR973cnCd7AZArGZAO0NRZAKZCBTBZBJ8j1f9bUzQMSwOmyjQjFndjxh9i4kTeA3BZAZCUyrfe16qViby96Giuvkc2XmL"
 }
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Documento para usar o WEB API
+
+Criar um Usuario 
+	{
+	"Nome": "Marlom Souza",
+	"email": "XXX@XXX.com",
+	"senha": "XXX"
+	}
+
+Authenticar com Email
+	{
+		"email": "XXXXX@XXXX.com"
+	}
+
+OBTER O TOKEN DO FACE
+	http://localhost:6507/view/LoginFace.html
+		F12 -> Object -> accessToken
+
+		Authenticar com o token facebook
+			{
+				"Facebook_token": "EAACEdEose0cBAB3TWFAy4h2CMl7YBECUBzswd1ZABtJMDmKryvOLZANYUi3Ilt7HqIIGEXVL4PeNoCDoZAb1Ro4Mzsq20jR973cnCd7AZArGZAO0NRZAKZCBTBZBJ8j1f9bUzQMSwOmyjQjFndjxh9i4kTeA3BZAZCUyrfe16qViby96Giuvkc2XmL"
+			}
+
+		Teste com Token EXPIRADO
+			{
+				"Facebook_token": "EAACEdEose0cBAB3TWFAy4h2CMl7YBECUBzswd1ZABtJMDmKryvOLZANYUi3Ilt7HqIIGEXVL4PeNoCDoZAb1Ro4Mzsq20jR973cnCd7AZArGZAO0NRZAKZCBTBZBJ8j1f9bUzQMSwOmyjQjFndjxh9i4kTeA3BZAZCUyrfe16qViby96Giuvkc2XmL"
+			}
+
+
+
+Esqueceu a senha
+	{
+		"email": "thunder_bolt2000@hotmail.com"
+	}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
