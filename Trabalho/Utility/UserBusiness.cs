@@ -11,6 +11,11 @@ namespace Trabalho.Utility
         private APIContext db = new APIContext();
         private EnviaEmail enviaEmail = new EnviaEmail();
 
+        /// <summary>
+        /// Método responsável por salvar as informações do usuário provindas do Facebook
+        /// </summary>
+        /// <param name="nome">Nome do usuário</param>
+        /// <param name="email">E-mail do usuário</param>
         public void CriarUsuarioFaceBook(string nome, string email)
         {
             User us = new User()
@@ -23,6 +28,11 @@ namespace Trabalho.Utility
             db.SaveChanges();
         }
 
+        /// <summary>
+        /// Verificar se o email já está cadastrado
+        /// </summary>
+        /// <param name="email">E-mail a ser verificado</param>
+        /// <returns></returns>
         public bool EmailCadastrado(string email)
         {
             User user = db.Users.Where(u => u.Email.Equals(email)).FirstOrDefault();

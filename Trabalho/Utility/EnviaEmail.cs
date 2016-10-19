@@ -15,13 +15,23 @@ namespace Trabalho.Utility
         string nomeRemetente = "Sistema de Tarefas";
         string emailRemetente = "aliguijulmar@gmail.com";
 
-
+        /// <summary>
+        /// Método responsável por gerar uma senha para o usuário.
+        /// </summary>
+        /// <param name="user">Entidade do usuário</param>
+        /// <returns></returns>
         private string GeraSenha(User user)
         {
             user.Senha = (user.Nome).Replace(" ","") + DateTime.Now.Day + DateTime.Now.Second;
             return user.Senha;
         }
 
+        /// <summary>
+        /// Método responsável por criar um e-mail para o usuário
+        /// </summary>
+        /// <param name="user">Entidade do usuário</param>
+        /// <param name="assuntoMensagem">Assunto da mensagem</param>
+        /// <returns></returns>
         public bool CriaEmail(User user, string assuntoMensagem)
         {
 

@@ -20,6 +20,11 @@ namespace Trabalho.Controllers
         private FacebookConnection FacebookConnection = new FacebookConnection();
         private UserBusiness _userBusiness = new UserBusiness();
 
+        /// <summary>
+        /// Método responsável pela autenticação do usuário.
+        /// </summary>
+        /// <param name="user">Usuário a ser autenticado</param>
+        /// <returns></returns>
         // POST: /Authenticate
         [ActionName("Authenticate")]
         [ResponseType(typeof(User))]
@@ -55,6 +60,11 @@ namespace Trabalho.Controllers
             return Ok(usuario);
         }
 
+        /// <summary>
+        /// Método responsável pela recuperação de senhas
+        /// </summary>
+        /// <param name="user">Usuário que deseja recuperar a senha</param>
+        /// <returns></returns>
         // POST: Authenticate/forgot_password
         [ActionName("Forgot_password")]
         [ResponseType(typeof(User))]
@@ -79,6 +89,11 @@ namespace Trabalho.Controllers
             return BadRequest("Email não existe na base!");
         }
 
+        /// <summary>
+        /// Método responsável por validar se o e-mail é válido
+        /// </summary>
+        /// <param name="emailaddress">E-mail a ser verificado</param>
+        /// <returns></returns>
         public bool IsValid(string emailaddress)
         {
             try

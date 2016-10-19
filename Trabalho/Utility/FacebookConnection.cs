@@ -11,9 +11,9 @@ namespace Trabalho.Utility
     public class FacebookConnection
     {
         /// <summary>
-        /// Retorna os dados do usuario
+        /// Retorna os dados do usuario no Facebook
         /// </summary>
-        /// <param name="facebook_token"></param>
+        /// <param name="facebook_token">Token do Facebook</param>
         /// <returns></returns>
         public string GetFacebookParameters(string facebook_token)
         {

@@ -13,6 +13,11 @@ namespace Trabalho.Controllers
     {
         private APIContext db = new APIContext();
 
+        /// <summary>
+        /// Método responsável por retornar as listas de tarefas de um usuário.
+        /// </summary>
+        /// <param name="_id">Identificador do usuário</param>
+        /// <returns></returns>
         public IQueryable<ListaTarefa> GetTodasListasdeTarefaUsuario(int _id)
         {
             return db.ListaTarefas.Where(t => t.UserId.Equals(_id));
@@ -22,7 +27,7 @@ namespace Trabalho.Controllers
         /// Retorna todas as tarefas da lista
         /// </summary>
         /// <param name="id">identificador da lista</param>
-        /// <param name="user_id">identificar do usuario</param>
+        /// <param name="_id">identificar do usuario</param>
         /// <returns></returns>
         public IQueryable<ListaTarefa> GetTarefaEspecifica(int id, int _id)
         {
@@ -33,8 +38,8 @@ namespace Trabalho.Controllers
         /// <summary>
         /// Atualização da lista de tarefas: nome e cor
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="listaTarefa"></param>
+        /// <param name="id">Identificador da lista</param>
+        /// <param name="listaTarefa">Entidade ListaTarefa</param>
         /// <returns></returns>
         [ResponseType(typeof(void))]
         public IHttpActionResult PutListaTarefa(int id, ListaTarefa listaTarefa)
@@ -67,7 +72,7 @@ namespace Trabalho.Controllers
         /// <summary>
         /// Cadastro de lista de tarefas
         /// </summary>
-        /// <param name="listaTarefa"></param>
+        /// <param name="listaTarefa">Método responsável por salvar uma lista de tarefas</param>
         /// <param name="_id">Id do usuario</param>
         /// <returns></returns>
         [ResponseType(typeof(ListaTarefa))]
@@ -87,6 +92,11 @@ namespace Trabalho.Controllers
             return CreatedAtRoute("DefaultApi", new { id = listaTarefa.Id }, listaTarefa);
         }
 
+        /// <summary>
+        /// Método responsável por deletar uma lista de tarefas
+        /// </summary>
+        /// <param name="id">Identificador da lista de tarefas</param>
+        /// <returns></returns>
         // DELETE: api/Task_list/5
         [ResponseType(typeof(ListaTarefa))]
         public IHttpActionResult DeleteListaTarefa(int id)
@@ -110,6 +120,11 @@ namespace Trabalho.Controllers
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Método responsável por verificar se uma lista de tarefas já existe
+        /// </summary>
+        /// <param name="id">Identificador da lista de tarefas</param>
+        /// <returns></returns>
         private bool ListaTarefaExists(int id)
         {
             return db.ListaTarefas.Count(e => e.Id == id) > 0;

@@ -18,13 +18,21 @@ namespace Trabalho.Controllers
         private APIContext db = new APIContext();
 
         // GET: api/Users
-        ///
+        /// <summary>
+        /// Método responsável por retornar todos os usuários
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<User> GetUsers()
         {
             return db.Users;
         }
 
         // GET: api/Users/5
+        /// <summary>
+        /// Método responsável por retornar um usuário específico
+        /// </summary>
+        /// <param name="id">Identificador do usuário</param>
+        /// <returns></returns>
         [ResponseType(typeof(User))]
         public IHttpActionResult GetUser(int id)
         {
@@ -36,6 +44,12 @@ namespace Trabalho.Controllers
         }
 
         // PUT: api/Users/5
+        /// <summary>
+        /// Método responsável por atualizar ou salvar um novo usuário
+        /// </summary>
+        /// <param name="id">Identificador do usuário</param>
+        /// <param name="user">Entidade do usuário</param>
+        /// <returns></returns>
         [ResponseType(typeof(void))]
         public IHttpActionResult PutUser(int id, User user)
         {
@@ -59,6 +73,11 @@ namespace Trabalho.Controllers
         }
 
         // POST: api/Users
+        /// <summary>
+        /// Método responsável por salvar um novo usuário
+        /// </summary>
+        /// <param name="user">Entidade do usuário</param>
+        /// <returns></returns>
         [ResponseType(typeof(User))]
         public IHttpActionResult PostUser(User user)
         {
@@ -75,6 +94,11 @@ namespace Trabalho.Controllers
         }
 
         // DELETE: api/Users/5
+        /// <summary>
+        /// Método responsável por deletar um usuário
+        /// </summary>
+        /// <param name="id">Identificador do usuário</param>
+        /// <returns></returns>
         [ResponseType(typeof(User))]
         public IHttpActionResult DeleteUser(int id)
         {
@@ -99,6 +123,11 @@ namespace Trabalho.Controllers
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Método responsável por verificar se o usuário já existe
+        /// </summary>
+        /// <param name="id">Identificador do usuário</param>
+        /// <returns></returns>
         private bool UserExists(int id)
         {
             return db.Users.Count(e => e.Id == id) > 0;
