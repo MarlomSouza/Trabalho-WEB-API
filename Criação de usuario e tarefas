@@ -44,10 +44,12 @@ Obtem todos os usuários cadastrados:
 GET http://listatarefas.apphb.com/users
 
 Obtem um usuário em específico:
-GET http://listatarefas.apphb.com/users/2
+GET http://listatarefas.apphb.com/users/#
+# -> É o id do usuário buscado.
 
 Atualiza as informações de um usuário:
-PUT http://listatarefas.apphb.com/users/2
+PUT http://listatarefas.apphb.com/users/#
+# -> É o id do usuário a ser atualizado.
 JSON:
 {
   "Id": 2,
@@ -59,7 +61,8 @@ JSON:
 }
 
 Salvar um novo usuário:
-POST: http://listatarefas.apphb.com/users/3
+POST: http://listatarefas.apphb.com/users/#
+# -> É o id do usuário a ser inserido.
 JSON:
 {
   "Id": 3,
@@ -71,22 +74,26 @@ JSON:
 }
 
 Deletar um usuário:
-DELETE: http://listatarefas.apphb.com/users/3
+DELETE: http://listatarefas.apphb.com/users/#
+# -> É o id do usuário a ser removido
 
 LISTA DE TAREFAS
 
 Criar uma lista de tarefas:
-POST http://listatarefas.apphb.com/Task_Lists/?_id=2
+POST http://listatarefas.apphb.com/Task_Lists/?_id=#
+# -> É o id do usuário que terá sua lista de tarefas criada
 {
 	"Nome": "Lista do campeonato",
 	"Cor": "Verde-Abacate"
 }
 
 Obtem lista de tarefa de um usuário:
-GET http://listatarefas.apphb.com/task_lists?_id=2
+GET http://listatarefas.apphb.com/task_lists?_id=#
+# -> É o id do usuário que terá suas listas retornadas.
 
 Atualizar uma lista de tarefas:
-PUT http://listatarefas.apphb.com/Task_Lists/?id=2
+PUT http://listatarefas.apphb.com/Task_Lists/?id=#
+# -> É o id da lista de tarefas que será atualizada.
 {
   "Id": 2,
   "Nome": "Lista da escola",
@@ -96,28 +103,39 @@ PUT http://listatarefas.apphb.com/Task_Lists/?id=2
 }
 
 Apagar uma lista de tarefas:
-DELETE http://listatarefas.apphb.com/Task_Lists/?id=2
+DELETE http://listatarefas.apphb.com/Task_Lists/?id=#
+# -> É o id da lista de tarefas que será removida.
 
 Obtem uma tarefa específica de uma lista:
-GET http://listatarefas.apphb.com/Task_Lists/?id=2&_id=2
+GET http://listatarefas.apphb.com/Task_Lists/?id=#1&_id=#2
+#1 -> É o id da lista de tarefas.
+#2 -> É o id do usuário.
 
 TAREFAS
 
 Obtem todas as tarefas de um usuário:
-GET http://listatarefas.apphb.com/Task_List/?_id=2
+GET http://listatarefas.apphb.com/Task_List/?_id=#
+# -> É o id do usuário que terá suas tarefas retornadas.
 
 Obtem todas as tarefas de uma lista:
-GET http://listatarefas.apphb.com/Task_List/?_listaId=2&user_id=2
+GET http://listatarefas.apphb.com/Task_List/?_listaId=#1&user_id=#2
+#1 -> É o id da lista de tarefas.
+#2 -> É o id do usuário.
 
 Criar uma tarefa:
-POST http://listatarefas.apphb.com/Task_List/?_id=3
+POST http://listatarefas.apphb.com/Task_List/?_id=#
+# -> É o id da nova tarefa que será criada
+JSON:
 {
   "Nome": "Primeira2",
 	"Feito": 0
 }
 
 Atualizar uma tarefa
-PUT http://listatarefas.apphb.com/Task_List/?_listaId=3&task_id=1
+PUT http://listatarefas.apphb.com/Task_List/?_listaId=#1&task_id=#2
+#1 -> É a o id da lista onde a tarefa está.
+#2 -> É o id da tarefa que será atualizada.
+JSON:
 {
   "Id": 1,
   "Nome": "Vampiros Gagos",
